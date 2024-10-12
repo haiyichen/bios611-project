@@ -1,7 +1,9 @@
 FROM rocker/rstudio:latest
-RUN apt-get update && \
-    apt-get install -y man-db && \
-    yes | unminimize && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y \
+    libcurl4-openssl-dev \
+    libssl-dev \
+    libxml2-dev
 
-EXPOSE 8787
+RUN R -e "install.packages(c('rmarkdown'))"
+
+WORKDIR /usr/src/app
